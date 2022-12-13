@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 09, 2022 at 07:39 PM
+-- Generation Time: Dec 13, 2022 at 04:36 PM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -169,6 +169,7 @@ CREATE TABLE IF NOT EXISTS `oglas` (
   `cena_fix` tinyint(1) NOT NULL,
   `zamena` tinyint(1) NOT NULL,
   `status_oglasa` tinyint(1) NOT NULL,
+  `slike` text COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`broj_oglasa`),
   KEY `vin_automobila` (`vin_automobila`),
   KEY `id_korisnika` (`id_korisnika`)
