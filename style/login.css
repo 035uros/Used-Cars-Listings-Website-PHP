@@ -1,0 +1,110 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+.login-page {
+  position: relative;
+  width: 360px;
+  margin: auto;
+}
+.search{
+  position: relative;
+  width: 80%;
+  margin: auto;
+}
+.center{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.form {
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.item-wrap{
+  padding-top: 20px;
+}
+.item {
+  display: inline-block;
+  z-index: 1;
+  background: #FFFFFF;
+  width: 90%;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.subtext{
+  width: 400px;
+  float: left;
+  padding-left: 50px;
+  text-align:left;
+}
+.subtext div{
+  font-size: 19px;
+  padding-bottom: 8px;
+}
+input[type=text], [type=password], [type=email]{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.form h1 {
+  color:#3f3b3b;
+  margin-top: auto;
+}
+
+input[type=submit], button {
+  width: 100%;
+  background-color: #00b4d8;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover, button:hover {
+  background-color: #0077b6;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+.form .message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+  font-family: "Roboto", sans-serif;
+}
+.form .message a {
+  color: #00b4d8;
+  
+}
+
+body {
+  background-color: #f1f1f1;
+}
+
+.inputtabela {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
