@@ -14,7 +14,7 @@
 
 
 <div>
-    <h1>Постављање огласа</h1>
+    <h1 class="naslov">Постављање огласа</h1>
 
     <form action="/action_page.php" class="formaUnosOglasa">
         <label for="naslov">Наслов огласа</label>

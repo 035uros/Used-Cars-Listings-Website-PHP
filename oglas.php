@@ -14,7 +14,7 @@
 </div>
 
 <div class="center">
-    <h1>Naziv oglasa</h1>
+    <h1 class="naslov">Naziv oglasa</h1>
     
     <div class="slideshow-container">
 
