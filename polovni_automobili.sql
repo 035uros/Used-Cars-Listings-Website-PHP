@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 11, 2023 at 03:35 PM
+-- Generation Time: Jan 11, 2023 at 09:21 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -43,8 +43,8 @@ CREATE TABLE IF NOT EXISTS `automobil` (
   `zapremina` int(11) NOT NULL,
   `snaga` varchar(30) COLLATE utf8mb4_bin NOT NULL,
   `id_broja_vrata` int(11) NOT NULL,
-  `oprema` text COLLATE utf8mb4_bin NOT NULL,
-  `registrovan_do` date DEFAULT NULL,
+  `oprema` text COLLATE utf8mb4_bin DEFAULT NULL,
+  `registrovan_do` varchar(35) COLLATE utf8mb4_bin DEFAULT NULL,
   PRIMARY KEY (`VIN`),
   KEY `id_marke` (`id_marke`),
   KEY `id_modela` (`id_modela`),
@@ -55,6 +55,15 @@ CREATE TABLE IF NOT EXISTS `automobil` (
   KEY `id_goriva` (`id_goriva`),
   KEY `id_broja_vrata` (`id_broja_vrata`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `automobil`
+--
+
+INSERT INTO `automobil` (`VIN`, `id_marke`, `id_modela`, `id_tip_vozila`, `godina_proizvodnje`, `kilometraza`, `id_pogona`, `id_menjaca`, `id_karoserije`, `id_goriva`, `zapremina`, `snaga`, `id_broja_vrata`, `oprema`, `registrovan_do`) VALUES
+(1111, 4, 59, 1, 2010, 222222, 1, 1, 1, 4, 2231, '123', 1, NULL, '11, 2023'),
+(4324231, 3, 33, 1, 2009, 111, 1, 1, 3, 4, 11, '11', 1, NULL, '12, 2023'),
+(1234567891, 14, 147, 1, 2012, 215000, 1, 1, 1, 1, 1600, '79', 1, NULL, '07, 2023');
 
 -- --------------------------------------------------------
 
@@ -140,14 +149,21 @@ CREATE TABLE IF NOT EXISTS `korisnik` (
   `ime` varchar(15) COLLATE utf8mb4_bin NOT NULL,
   `prezime` varchar(25) COLLATE utf8mb4_bin NOT NULL,
   `id_tipa_korisnika` int(11) NOT NULL,
-  `email` varchar(25) COLLATE utf8mb4_bin NOT NULL,
+  `email` varchar(300) COLLATE utf8mb4_bin NOT NULL,
   `username` varchar(25) COLLATE utf8mb4_bin NOT NULL,
   `sifra` varchar(25) COLLATE utf8mb4_bin NOT NULL,
   `kontaktTelefon` varchar(20) COLLATE utf8mb4_bin NOT NULL,
   `region` varchar(20) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id_korisnika`),
   KEY `id_tipa_korisnika` (`id_tipa_korisnika`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `korisnik`
+--
+
+INSERT INTO `korisnik` (`id_korisnika`, `ime`, `prezime`, `id_tipa_korisnika`, `email`, `username`, `sifra`, `kontaktTelefon`, `region`) VALUES
+(1, 'Урош', 'Милошевић', 2, 'milosevicurose14@gmail.com', 'uros', '123', '0614111002', 'Централна Србија');
 
 -- --------------------------------------------------------
 
@@ -590,17 +606,27 @@ INSERT INTO `model` (`id_model`, `id_marka`, `naziv`) VALUES
 DROP TABLE IF EXISTS `oglas`;
 CREATE TABLE IF NOT EXISTS `oglas` (
   `broj_oglasa` int(11) NOT NULL,
+  `naslov` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `id_korisnika` int(11) NOT NULL,
   `vin_automobila` int(11) NOT NULL,
   `cena` double NOT NULL,
-  `cena_fix` tinyint(1) NOT NULL,
-  `zamena` tinyint(1) NOT NULL,
+  `cena_fix` tinyint(1) DEFAULT NULL,
+  `zamena` tinyint(1) DEFAULT NULL,
   `status_oglasa` tinyint(1) NOT NULL,
-  `slike` text COLLATE utf8mb4_bin NOT NULL,
+  `slike` text COLLATE utf8mb4_bin DEFAULT NULL,
+  `datum` varchar(55) COLLATE utf8mb4_bin DEFAULT NULL,
   PRIMARY KEY (`broj_oglasa`),
   KEY `vin_automobila` (`vin_automobila`),
   KEY `id_korisnika` (`id_korisnika`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `oglas`
+--
+
+INSERT INTO `oglas` (`broj_oglasa`, `naslov`, `id_korisnika`, `vin_automobila`, `cena`, `cena_fix`, `zamena`, `status_oglasa`, `slike`, `datum`) VALUES
+(163, 'aa', 1, 1111, 1111, 0, 1, 1, NULL, '11 01 2023'),
+(1382880517, 'adsdas', 1, 4324231, 4322, 0, 1, 1, NULL, '11 01 2023');
 
 -- --------------------------------------------------------
 
@@ -726,7 +752,7 @@ ALTER TABLE `model`
 --
 ALTER TABLE `oglas`
   ADD CONSTRAINT `oglas_ibfk_2` FOREIGN KEY (`vin_automobila`) REFERENCES `automobil` (`VIN`),
-  ADD CONSTRAINT `oglas_ibfk_3` FOREIGN KEY (`broj_oglasa`) REFERENCES `korisnik` (`id_korisnika`);
+  ADD CONSTRAINT `oglas_ibfk_3` FOREIGN KEY (`id_korisnika`) REFERENCES `korisnik` (`id_korisnika`);
 
 --
 -- Constraints for table `pretraga`

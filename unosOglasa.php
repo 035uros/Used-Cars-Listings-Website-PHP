@@ -1,3 +1,36 @@
+<?php
+include 'baza_podataka.php';
+session_start();
+
+if($_SESSION['potvrdjenpristup'] == false){
+    header( 'location: /login.php?nijeprijavljen=true' );
+}
+
+$conn = OpenCon();
+if(isset($_GET["unosavozila"])){
+    
+
+
+/*
+$naslov          = $_POST['naslov'];
+    $marka           = $_POST['marka'];
+    $model           = $_POST['model'];
+    $godiste         = $_POST['godiste'];
+    $karoserija      = $_POST['karoserija'];
+    $tip             = $_POST['tip'];
+    $gorivo          = $_POST['gorivo'];
+    $kubikaza        = $_POST['kubikaza'];
+    $snaga           = $_POST['snaga'];
+    $km              = $_POST['km'];
+    $registrovan     = $_POST['registrovan'];
+    $vrata           = $_POST['vrata'];
+    $menjac          = $_POST['menjac'];
+    $cena            = $_POST['cena'];
+    $zamena          = $_POST['zamena'];
+    $fiks            = $_POST['fiks'];
+*/
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +40,12 @@
 <body>
 
 <div class="topnav">    
-    <a href="login.php">Пријави се</a>
+    <?php if($_SESSION['potvrdjenpristup'] == true){
+            echo'<a href="login.php?o=1">Одјави се</a>';
+        }else{
+            echo'<a href="login.php">Пријави се</a>';
+        }
+    ?>  
     <a class="active" href="unosOglasa.php">Постави оглас</a>
     <a href="index.php">Почетна</a>
 </div>
@@ -16,7 +54,7 @@
 <div>
     <h1 class="naslov">Постављање огласа</h1>
 
-    <form action="/action_page.php" class="formaUnosOglasa">
+    <form class="formaUnosOglasa" action = "upload.php" method="post" enctype="multipart/form-data"> 
         <label for="naslov">Наслов огласа</label>
         <input type="text" id="naslov" name="naslov" placeholder="Наслов" required>
 
@@ -26,44 +64,101 @@
                 <label for="file-input">
                     <img src="https://icons.iconarchive.com/icons/paomedia/small-n-flat/128/cloud-up-icon.png"/>
                 </label>
-                <input id="file-input" type="file" multiple required>
+                <input id="file-input" type="file" name="file[]" multiple required>
             </div>
 
         <label for="marka">Марка:</label>
         <select name="marka" id="marka" required>
             <option value="" disabled selected hidden>Марка</option>
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
+            <?php
+            $conn->query("SET NAMES 'utf8'");
+            $sql = "SELECT * FROM marka";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                while($red = $result->fetch_assoc()) {
+                    if($_GET['broj'] == $red["id_marke"]){
+                        echo'<option onclick="location.href=\'unosOglasa.php?broj='.$red["id_marke"].'\'" value="'.$red["id_marke"].'" selected>'.$red["naziv"].'</option>';
+                    }else{
+                        echo'<option onclick="location.href=\'unosOglasa.php?broj='.$red["id_marke"].'\'" value="'.$red["id_marke"].'">'.$red["naziv"].'</option>';
+                    }
+                }
+            }
+            ?>
         </select>
 
-        <label for="marka">Модел:</label>
+        <label for="model">Модел:</label>
         <select name="model" id="model" required>
             <option value="" disabled selected hidden>Модел</option>
-            <option value="baza">baza</option>
+            <?php
+            if(isset($_GET['broj'])){
+                $id_marke=$_GET['broj'];
+                $conn = OpenCon();
+                $conn->query("SET NAMES 'utf8'");
+                $sql = "SELECT * FROM model WHERE id_marka =".$id_marke."";
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+                    while($red = $result->fetch_assoc()) {
+                        echo'<option value="'.$red["id_model"].'">'.$red["naziv"].'</option>';
+                    }
+                }
+            }
+            ?>
         </select>
 
         <h2>Основне информације</h2>
-        <label for="godiste">Годиште:</label>
-        <input type="text" id="godiste" name="godiste" placeholder="Годиште" required>
+        <label for="godiste">Година производње:</label>
+        <select name="godiste" id="godiste" required>
+        <option value="" disabled selected hidden>Годише</option>
+        <?php
+            for($i=date("Y"); $i>1960; $i--) {
+                echo'<option value="'.$i.'">'.$i.'</option>';
+            } 
+        ?>
+        </select>
 
         <label for="karoserija">Каросерија:</label>
         <select name="karoserija" id="karoserija" required>
             <option value="" disabled selected hidden>Каросерија</option>
-            <option value="baza">baza</option>
+            <?php
+            $conn->query("SET NAMES 'utf8'");
+            $sql = "SELECT * FROM karoserija";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                while($red = $result->fetch_assoc()) {
+                    echo'<option value="'.$red["id_karoserije"].'">'.$red["naziv"].'</option>';
+                }
+            }
+        ?>
         </select>
 
         <label for="tip">Тип возила:</label>
         <select name="tip" id="tip" required>
             <option value="" disabled selected hidden>Тип</option>
-            <option value="baza">Путничко</option>
+            <?php
+            $conn->query("SET NAMES 'utf8'");
+            $sql = "SELECT * FROM tip_vozila";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                while($red = $result->fetch_assoc()) {
+                    echo'<option value="'.$red["id_tipa_vozila"].'">'.$red["naziv"].'</option>';
+                }
+            }
+            ?>
         </select>
 
         <label for="gorivo">Гориво:</label>
         <select name="gorivo" id="gorivo" required>
             <option value="" disabled selected hidden>Гориво</option>
-            <option value="baza">baza</option>
+            <?php
+            $conn->query("SET NAMES 'utf8'");
+            $sql = "SELECT * FROM gorivo";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                while($red = $result->fetch_assoc()) {
+                    echo'<option value="'.$red["id_goriva"].'">'.$red["naziv"].'</option>';
+                }
+            }
+            ?>
         </select>
 
         <br>
@@ -78,26 +173,68 @@
         <input type="text" id="snaga" name="snaga" placeholder="Снага мотора" required>
 
         <label for="km">Километража:</label>
-        <input type="text" id="km" name="km" placeholder="180000" required>
+        <input type="text" id="km" name="km" placeholder="180000" >
 
         <select name="registrovan" id="registrovan" required>
             <option value="" disabled selected hidden>Регистрован до</option>
-            <option value="baza">мај 2023</option>
+            <option value="nijeReg">Није регистрован</option>
+            <?php
+                $start = new DateTime;
+                $start->setDate($start->format('Y'), $start->format('n'), 1); // Normalize the day to 1
+                $start->setTime(0, 0, 0); // Normalize time to midnight
+                $start->sub(new DateInterval('P1M'));
+                $interval = new DateInterval('P1M');
+                $recurrences = 13;
+                
+                foreach (new DatePeriod($start, $interval, $recurrences, true) as $date) {
+                    echo '<option value="'.$date->format('m, Y').'">'.$date->format('m, Y').'</option>'; 
+                }
+            ?>
         </select>
 
         <select name="pogon" id="pogon" required>
             <option value="" disabled selected hidden>Погон</option>
-            <option value="baza">база</option>
+            <?php
+            $conn->query("SET NAMES 'utf8'");
+            $sql = "SELECT * FROM pogon";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                while($red = $result->fetch_assoc()) {
+                    echo'<option value="'.$red["id_pogona"].'">'.$red["naziv"].'</option>';
+                }
+            }
+            
+            ?>
         </select>
 
         <select name="vrata" id="vrata" required>
             <option value="" disabled selected hidden>Број врата</option>
-            <option value="baza">база</option>
+            <?php
+            $conn->query("SET NAMES 'utf8'");
+            $sql = "SELECT * FROM broj_vrata";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                while($red = $result->fetch_assoc()) {
+                    echo'<option value="'.$red["id_broja_vrata"].'">'.$red["broj"].'</option>';
+                }
+            }
+            
+            ?>
         </select>
 
         <select name="menjac" id="menjac" required>
             <option value="" disabled selected hidden>Мењач</option>
-            <option value="baza">база</option>
+            <?php
+            $conn->query("SET NAMES 'utf8'");
+            $sql = "SELECT * FROM menjac";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                while($red = $result->fetch_assoc()) {
+                    echo'<option value="'.$red["id_menjaca"].'">'.$red["naziv"].'</option>';
+                }
+            }
+            CloseCon($conn);
+            ?>
         </select>
 
 
@@ -105,16 +242,15 @@
         <label for="cena">Цена:</label>
         <input type="text" id="cena" name="cena" placeholder="Цена €" required>
 
-        <input type="checkbox" id="fiks" name="fiks">
+        <input type="checkbox" id="fiks" value="true" name="fiks">
         <label for="fiks">Фиксна цена</label>
         
-        <input type="checkbox" id="zamena" name="zamena">
+        <input type="checkbox" id="zamena" value="true" name="zamena">
         <label for="zamena">Замена</label>
 
-        <input type="submit" value="Унеси">
+        <input type="submit" name="unosvozila" value="Унеси">
     </form>
 </div>
-
 
 <div class="footer">
     <p>аутодетектив 2023. © Сва права задржана.</p>
