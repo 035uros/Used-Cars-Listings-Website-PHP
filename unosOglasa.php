@@ -7,29 +7,7 @@ if($_SESSION['potvrdjenpristup'] == false){
 }
 
 $conn = OpenCon();
-if(isset($_GET["unosavozila"])){
-    
 
-
-/*
-$naslov          = $_POST['naslov'];
-    $marka           = $_POST['marka'];
-    $model           = $_POST['model'];
-    $godiste         = $_POST['godiste'];
-    $karoserija      = $_POST['karoserija'];
-    $tip             = $_POST['tip'];
-    $gorivo          = $_POST['gorivo'];
-    $kubikaza        = $_POST['kubikaza'];
-    $snaga           = $_POST['snaga'];
-    $km              = $_POST['km'];
-    $registrovan     = $_POST['registrovan'];
-    $vrata           = $_POST['vrata'];
-    $menjac          = $_POST['menjac'];
-    $cena            = $_POST['cena'];
-    $zamena          = $_POST['zamena'];
-    $fiks            = $_POST['fiks'];
-*/
-}
 ?>
 <!DOCTYPE html>
 <html>
