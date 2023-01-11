@@ -91,7 +91,7 @@ input[type=text], select {
   display: none;
 }
 
-h1{
+.naslov{
   padding-top: 3rem;
   padding-left: 4rem;
 }
