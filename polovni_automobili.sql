@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 13, 2022 at 04:36 PM
+-- Generation Time: Jan 11, 2023 at 10:30 AM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -102,13 +102,15 @@ CREATE TABLE IF NOT EXISTS `karoserija` (
 
 DROP TABLE IF EXISTS `korisnik`;
 CREATE TABLE IF NOT EXISTS `korisnik` (
-  `id_korisnika` int(11) NOT NULL,
+  `id_korisnika` int(11) NOT NULL AUTO_INCREMENT,
   `ime` varchar(15) COLLATE utf8mb4_bin NOT NULL,
   `prezime` varchar(25) COLLATE utf8mb4_bin NOT NULL,
   `id_tipa_korisnika` int(11) NOT NULL,
   `email` varchar(25) COLLATE utf8mb4_bin NOT NULL,
   `username` varchar(25) COLLATE utf8mb4_bin NOT NULL,
   `sifra` varchar(25) COLLATE utf8mb4_bin NOT NULL,
+  `kontaktTelefon` varchar(20) COLLATE utf8mb4_bin NOT NULL,
+  `region` varchar(20) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id_korisnika`),
   KEY `id_tipa_korisnika` (`id_tipa_korisnika`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
@@ -274,8 +276,8 @@ ALTER TABLE `model`
 -- Constraints for table `oglas`
 --
 ALTER TABLE `oglas`
-  ADD CONSTRAINT `oglas_ibfk_1` FOREIGN KEY (`id_korisnika`) REFERENCES `korisnik` (`id_korisnika`),
-  ADD CONSTRAINT `oglas_ibfk_2` FOREIGN KEY (`vin_automobila`) REFERENCES `automobil` (`VIN`);
+  ADD CONSTRAINT `oglas_ibfk_2` FOREIGN KEY (`vin_automobila`) REFERENCES `automobil` (`VIN`),
+  ADD CONSTRAINT `oglas_ibfk_3` FOREIGN KEY (`broj_oglasa`) REFERENCES `korisnik` (`id_korisnika`);
 
 --
 -- Constraints for table `pretraga`
