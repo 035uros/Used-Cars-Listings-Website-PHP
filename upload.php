@@ -21,6 +21,7 @@ if(isset($_POST["unosvozila"])){
     $vin             = intval($_POST['vin']);
     $pogon           = intval($_POST['pogon']);
     $broj_oglasa     = (int)((rand() * rand())/rand());
+    $opis            = $_POST["opis"];
     $datum           = strval(date("d m Y"));
     if(isset( $_POST['zamena'])){
     $zamena          = 1;
@@ -51,10 +52,11 @@ if(isset($_POST["unosvozila"])){
     if(in_array($fileActualExt, $allowed)){
         if($fileError === 0){
             $fileNameNew = uniqid('', true).".".$fileActualExt;
-            if (!file_exists("C:/wamp64/www/UsedCarsApp/images/oglasi/". strval($broj_oglasa))) {
-                mkdir("C:/wamp64/www/UsedCarsApp/images/oglasi/". strval($broj_oglasa), 0777, true);}
-            $fileDestination = "C:/wamp64/www/UsedCarsApp/images/oglasi/". strval($broj_oglasa)."/".$fileNameNew;
-            $nizPutanja = $nizPutanja.$fileDestination.';';
+            if (!file_exists("C:/wamp64/www/UsedCarsWebApp-main/images/oglasi/". strval($broj_oglasa))) {
+                mkdir("C:/wamp64/www/UsedCarsWebApp-main/images/oglasi/". strval($broj_oglasa), 0777, true);}
+            $fileDestination = "C:/wamp64/www/UsedCarsWebApp-main/images/oglasi/". strval($broj_oglasa)."/".$fileNameNew;
+            $fileBaza = "images/oglasi/". strval($broj_oglasa)."/".$fileNameNew;
+            $nizPutanja = $nizPutanja.$fileBaza.';';
             move_uploaded_file($fileTmpName, $fileDestination);
         }
         else{
@@ -74,15 +76,14 @@ $conn->query("SET NAMES 'utf8'");
     }
     else{
         echo("Грешка при уносу аутомобила: " . $conn -> error);
-        header('location: unosOglasa.php');
     }
-    $sql = "INSERT INTO `oglas` (`broj_oglasa`, `naslov`, `id_korisnika`, `vin_automobila`, `cena`,`status_oglasa`, `datum`,`cena_fix`,`zamena`,`slike`) VALUES ($broj_oglasa, '$naslov', $id_korisnika, $vin, $cena, 1, '$datum', $fiks, $zamena, '$nizPutanja')";
+    $sql = "INSERT INTO `oglas` (`broj_oglasa`, `naslov`, `id_korisnika`, `vin_automobila`, `cena`,`status_oglasa`, `datum`,`cena_fix`,`zamena`,`slike`,`opis`) VALUES ($broj_oglasa, '$naslov', $id_korisnika, $vin, $cena, 1, '$datum', $fiks, $zamena, '$nizPutanja', '$opis')";
     
     if($conn->query($sql)){
     }
     else{
         echo("Грешка при уносу огласа: " . $conn -> error);
-        header('location: unosOglasa.php');
+        
     }
 
 

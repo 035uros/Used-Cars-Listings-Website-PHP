@@ -139,7 +139,7 @@ $conn = OpenCon();
             ?>
         </select>
 
-        <br>
+        
         <h2>Додатне информације</h2>
         <label for="vin">Број шасије:</label>
         <input type="text" id="vin" name="vin" placeholder="VIN" required>
@@ -225,6 +225,10 @@ $conn = OpenCon();
         
         <input type="checkbox" id="zamena" value="true" name="zamena">
         <label for="zamena">Замена</label>
+
+        <br><br>
+        <label for="opis">Опис:</label>
+        <textarea id="opis" name="opis" rows="4" cols="50"></textarea>
 
         <input type="submit" name="unosvozila" value="Унеси">
     </form>
