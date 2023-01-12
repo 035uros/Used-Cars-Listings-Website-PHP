@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 12, 2023 at 11:14 AM
+-- Generation Time: Jan 12, 2023 at 04:19 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -154,14 +154,16 @@ CREATE TABLE IF NOT EXISTS `korisnik` (
   `region` varchar(20) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id_korisnika`),
   KEY `id_tipa_korisnika` (`id_tipa_korisnika`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Dumping data for table `korisnik`
 --
 
 INSERT INTO `korisnik` (`id_korisnika`, `ime`, `prezime`, `id_tipa_korisnika`, `email`, `username`, `sifra`, `kontaktTelefon`, `region`) VALUES
-(1, 'Урош', 'Милошевић', 2, 'milosevicurose14@gmail.com', 'uros', '123', '0614111002', 'Централна Србија');
+(1, 'Урош', 'Милошевић', 2, 'milosevicurose14@gmail.com', 'uros', '123', '0614111002', 'Централна Србија'),
+(3, 'Урош', 'Петровић', 1, 'uroskg@gmail.com', 'urosp', '1234', '06512345698', 'Београд'),
+(5, 'Јована', 'Мицић', 2, 'jovana@gmail.com', 'jovana', '12345', '0617895321', 'Источна Србија');
 
 -- --------------------------------------------------------
 
