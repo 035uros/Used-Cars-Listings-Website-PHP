@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 11, 2023 at 09:21 PM
+-- Generation Time: Jan 12, 2023 at 10:59 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -43,7 +43,6 @@ CREATE TABLE IF NOT EXISTS `automobil` (
   `zapremina` int(11) NOT NULL,
   `snaga` varchar(30) COLLATE utf8mb4_bin NOT NULL,
   `id_broja_vrata` int(11) NOT NULL,
-  `oprema` text COLLATE utf8mb4_bin DEFAULT NULL,
   `registrovan_do` varchar(35) COLLATE utf8mb4_bin DEFAULT NULL,
   PRIMARY KEY (`VIN`),
   KEY `id_marke` (`id_marke`),
@@ -60,10 +59,18 @@ CREATE TABLE IF NOT EXISTS `automobil` (
 -- Dumping data for table `automobil`
 --
 
-INSERT INTO `automobil` (`VIN`, `id_marke`, `id_modela`, `id_tip_vozila`, `godina_proizvodnje`, `kilometraza`, `id_pogona`, `id_menjaca`, `id_karoserije`, `id_goriva`, `zapremina`, `snaga`, `id_broja_vrata`, `oprema`, `registrovan_do`) VALUES
-(1111, 4, 59, 1, 2010, 222222, 1, 1, 1, 4, 2231, '123', 1, NULL, '11, 2023'),
-(4324231, 3, 33, 1, 2009, 111, 1, 1, 3, 4, 11, '11', 1, NULL, '12, 2023'),
-(1234567891, 14, 147, 1, 2012, 215000, 1, 1, 1, 1, 1600, '79', 1, NULL, '07, 2023');
+INSERT INTO `automobil` (`VIN`, `id_marke`, `id_modela`, `id_tip_vozila`, `godina_proizvodnje`, `kilometraza`, `id_pogona`, `id_menjaca`, `id_karoserije`, `id_goriva`, `zapremina`, `snaga`, `id_broja_vrata`, `registrovan_do`) VALUES
+(123, 1, 1, 1, 2021, 111, 1, 1, 2, 1, 111, '11', 1, '01, 2024'),
+(1231, 1, 1, 1, 2009, 1111, 1, 1, 2, 2, 111, '11', 1, '01, 2023'),
+(12314, 1, 11, 1, 2007, 1243, 1, 1, 8, 5, 1234, '23', 1, '01, 2024'),
+(12423, 5, 68, 1, 2021, 12344, 3, 1, 2, 2, 123123, '12', 2, '03, 2023'),
+(34234, 1, 3, 1, 2008, 12312, 1, 1, 3, 1, 123123, '231312', 1, '12, 2023'),
+(185156, 9, 114, 1, 2023, 234243, 1, 1, 1, 1, 1651, '324', 1, '07, 2023'),
+(122034555, 1, 5, 1, 2007, 176320, 1, 1, 3, 1, 1910, '120', 2, '11, 2023'),
+(125486235, 1, 1, 1, 1996, 264312, 1, 1, 1, 2, 1268, '65', 1, '01, 2023'),
+(192000187, 8, 103, 1, 2003, 248752, 1, 2, 4, 2, 2400, '170', 1, '05, 2023'),
+(192200350, 8, 90, 1, 2008, 184000, 1, 1, 1, 2, 1368, '150', 2, '11, 2023'),
+(1154892853, 8, 98, 1, 2006, 145000, 1, 1, 1, 2, 1398, '65', 1, '10, 2023');
 
 -- --------------------------------------------------------
 
@@ -156,14 +163,16 @@ CREATE TABLE IF NOT EXISTS `korisnik` (
   `region` varchar(20) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id_korisnika`),
   KEY `id_tipa_korisnika` (`id_tipa_korisnika`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Dumping data for table `korisnik`
 --
 
 INSERT INTO `korisnik` (`id_korisnika`, `ime`, `prezime`, `id_tipa_korisnika`, `email`, `username`, `sifra`, `kontaktTelefon`, `region`) VALUES
-(1, 'Урош', 'Милошевић', 2, 'milosevicurose14@gmail.com', 'uros', '123', '0614111002', 'Централна Србија');
+(1, 'Урош', 'Милошевић', 2, 'milosevicurose14@gmail.com', 'uros', '123', '0614111002', 'Централна Србија'),
+(3, 'Урош', 'Петровић', 1, 'uroskg@gmail.com', 'urospetrovic', '1234', '06512345698', 'Западна Србија'),
+(5, 'Јована', 'Мићић', 2, 'jovana@gmail.com', 'jovana', '12345', '06512345698', 'Београд');
 
 -- --------------------------------------------------------
 
@@ -614,6 +623,7 @@ CREATE TABLE IF NOT EXISTS `oglas` (
   `zamena` tinyint(1) DEFAULT NULL,
   `status_oglasa` tinyint(1) NOT NULL,
   `slike` text COLLATE utf8mb4_bin DEFAULT NULL,
+  `opis` text COLLATE utf8mb4_bin DEFAULT NULL,
   `datum` varchar(55) COLLATE utf8mb4_bin DEFAULT NULL,
   PRIMARY KEY (`broj_oglasa`),
   KEY `vin_automobila` (`vin_automobila`),
@@ -624,9 +634,12 @@ CREATE TABLE IF NOT EXISTS `oglas` (
 -- Dumping data for table `oglas`
 --
 
-INSERT INTO `oglas` (`broj_oglasa`, `naslov`, `id_korisnika`, `vin_automobila`, `cena`, `cena_fix`, `zamena`, `status_oglasa`, `slike`, `datum`) VALUES
-(163, 'aa', 1, 1111, 1111, 0, 1, 1, NULL, '11 01 2023'),
-(1382880517, 'adsdas', 1, 4324231, 4322, 0, 1, 1, NULL, '11 01 2023');
+INSERT INTO `oglas` (`broj_oglasa`, `naslov`, `id_korisnika`, `vin_automobila`, `cena`, `cena_fix`, `zamena`, `status_oglasa`, `slike`, `opis`, `datum`) VALUES
+(59639435, '1.9 Multijet', 1, 122034555, 3750, 0, 0, 1, 'images/oglasi/59639435/63c08dc740c849.33341005.jpg;images/oglasi/59639435/63c08dc7411ec0.03858663.jpg;', 'Редовно одржаван аутомобил.', '12 01 2023'),
+(312236159, 'ABARTH', 1, 192000187, 2990, 0, 0, 1, 'images/oglasi/312236159/63c08d317079b7.86971984.jpg;images/oglasi/312236159/63c08d3170c3c1.01341508.jpg;images/oglasi/312236159/63c08d3170ffc9.61108936.jpg;', 'Фантастичан аутомобил. Без замене.', '12 01 2023'),
+(433867146, 'Alfa 145 NOV NOV NOV', 1, 125486235, 800, 0, 1, 1, 'images/oglasi/433867146/63bf413028b6a9.53212911.jpg;images/oglasi/433867146/63bf413028f066.11375048.jpg;images/oglasi/433867146/63bf4130292195.92778026.jpg;', NULL, '11 01 2023'),
+(614198327, 'Fiat Grande Punto 1.4', 1, 1154892853, 2200, 1, 0, 1, 'images/oglasi/614198327/63bfe1c8a2aab8.94574422.jpg;images/oglasi/614198327/63bfe1c8a3e317.32624153.jpg;', 'Одличан Пунтић, као чаша. Први власник. Купљен код другара директно из фабрике Застава. Ко не верује, нек иде код портира и нека пита.', '12 01 2023'),
+(1764037384, '1.4 T-jet', 1, 192200350, 4400, 1, 0, 1, 'images/oglasi/1764037384/63c08e369b36b9.85883692.jpg;images/oglasi/1764037384/63c08e369b7284.65616945.jpg;images/oglasi/1764037384/63c08e369ba5d3.66725767.jpg;', 'Комплетна сервисна историја.', '12 01 2023');
 
 -- --------------------------------------------------------
 
@@ -658,24 +671,32 @@ INSERT INTO `pogon` (`id_pogona`, `naziv`) VALUES
 
 DROP TABLE IF EXISTS `pretraga`;
 CREATE TABLE IF NOT EXISTS `pretraga` (
-  `id_pretrage` int(11) NOT NULL,
+  `id_pretrage` int(11) NOT NULL AUTO_INCREMENT,
+  `naziv` varchar(255) COLLATE utf8mb4_bin NOT NULL,
   `id_korisnika` int(11) NOT NULL,
   `id_model` int(11) DEFAULT NULL,
   `id_marka` int(11) DEFAULT NULL,
   `id_goriva` int(11) DEFAULT NULL,
-  `godiste` year(4) DEFAULT NULL,
-  `kilometraza_do` int(11) DEFAULT NULL,
+  `godisteod` year(4) DEFAULT NULL,
+  `godistedo` year(4) DEFAULT NULL,
   `cena_do` double DEFAULT NULL,
-  `id_pogona` int(11) DEFAULT NULL,
-  `id_menjaca` int(11) DEFAULT NULL,
+  `id_karoserije` int(11) DEFAULT NULL,
+  `region` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   PRIMARY KEY (`id_pretrage`),
   KEY `id_korisnika` (`id_korisnika`),
   KEY `id_model` (`id_model`),
   KEY `id_marka` (`id_marka`),
-  KEY `id_goriva` (`id_goriva`),
-  KEY `id_pogona` (`id_pogona`),
-  KEY `id_menjaca` (`id_menjaca`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+  KEY `id_goriva` (`id_goriva`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `pretraga`
+--
+
+INSERT INTO `pretraga` (`id_pretrage`, `naziv`, `id_korisnika`, `id_model`, `id_marka`, `id_goriva`, `godisteod`, `godistedo`, `cena_do`, `id_karoserije`, `region`) VALUES
+(13, 'ALFA', 3, 0, 1, 0, 2000, 2000, 0, 0, NULL),
+(15, 'alfica', 3, 1, 1, 2, 1974, 2023, 1000, 1, 'Централна Србија'),
+(17, 'Alfa Romeo', 1, 0, 1, 0, 2000, 2000, 0, 0, '');
 
 -- --------------------------------------------------------
 
@@ -758,11 +779,7 @@ ALTER TABLE `oglas`
 -- Constraints for table `pretraga`
 --
 ALTER TABLE `pretraga`
-  ADD CONSTRAINT `pretraga_ibfk_2` FOREIGN KEY (`id_menjaca`) REFERENCES `menjac` (`id_menjaca`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `pretraga_ibfk_4` FOREIGN KEY (`id_pogona`) REFERENCES `pogon` (`id_pogona`),
-  ADD CONSTRAINT `pretraga_ibfk_5` FOREIGN KEY (`id_goriva`) REFERENCES `gorivo` (`id_goriva`),
   ADD CONSTRAINT `pretraga_ibfk_6` FOREIGN KEY (`id_korisnika`) REFERENCES `korisnik` (`id_korisnika`),
-  ADD CONSTRAINT `pretraga_ibfk_7` FOREIGN KEY (`id_model`) REFERENCES `model` (`id_model`),
   ADD CONSTRAINT `pretraga_ibfk_8` FOREIGN KEY (`id_marka`) REFERENCES `automobil` (`id_marke`);
 COMMIT;
 
