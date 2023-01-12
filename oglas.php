@@ -1,7 +1,10 @@
 <?php
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 include 'baza_podataka.php';
 session_start();
-$broj_oglasa = 614198327;
+if(isset($_GET["broj"])){
+    $broj_oglasa=$_GET["broj"];
+}
 $conn = OpenCon();
 $conn->query("SET NAMES 'utf8'");
 $sql = "SELECT * FROM ((oglas join automobil on oglas.vin_automobila = automobil.VIN) join korisnik on korisnik.id_korisnika = oglas.id_korisnika) where oglas.broj_oglasa = $broj_oglasa";
@@ -71,7 +74,6 @@ if ($result->num_rows > 0) {
 
     }
 }
-
 ?>
 
 
@@ -86,17 +88,21 @@ if ($result->num_rows > 0) {
 
 
 
-<div class="topnav">    
-    <?php 
-        if($_SESSION['potvrdjenpristup'] == true){
-            echo'<a href="login.php?o=1">Одјави се</a>';
-        }else{
-            echo'<a href="login.php">Пријави се</a>';
-        }
-    ?>
-    <a href="unosOglasa.php">Постави оглас</a>
-    <a href="index.php">Почетна</a>
-</div>
+<div class="topnav">
+            <?php if($_SESSION['potvrdjenpristup'] == true)
+            {
+               echo'<a href="login.php?o=1">Одјави се</a>';
+               if($_SESSION['id_tipa_korisnika']==1){
+                echo'<a href="odobravanjeOglasa.php">Одобри огласе</a>';
+                echo'<a href="kontrolnatabla.php">Контролна табла</a>';
+               }
+            }else{
+                echo'<a href="login.php">Пријави се</a>';
+            }
+            ?>    
+            <a href="unosOglasa.php">Постави оглас</a>
+            <a class="active" href="index.php">Почетна</a>
+        </div>
 
 <div class="center">
     <h1 class="naslov"><?php echo $naslov ?></h1>
@@ -135,14 +141,14 @@ if ($result->num_rows > 0) {
     <div>Произвођач:   <?php echo $marka ?></div>
     <div>Модел:   <?php echo $model ?></div>
     <div>Тип возила:   <?php echo $tip ?></div>
-    <div>Годиште:   <?php echo $godiste ?></div>
-    <div>Пређени километри:   <?php echo $km ?></div>
+    <div>Годиште:   <?php echo $godiste.'.' ?></div>
+    <div>Пређени километри:   <?php echo $km.' km' ?></div>
     <div>Каросерија:   <?php echo $karoserija ?></div>
     <div>Гориво:   <?php echo $gorivo ?></div>
     <div>Погон:   <?php echo $pogon ?></div>
     <div>Мењач:   <?php echo $menjac ?></div>
-    <div>Запремина мотора:   <?php echo $kubikaza ?></div>
-    <div>Снага:   <?php echo $snaga ?></div>
+    <div>Запремина мотора:   <?php echo $kubikaza.' cm3' ?></div>
+    <div>Снага:   <?php echo $snaga.' ks' ?></div>
     <div>Број врата:   <?php echo $vrata ?></div>
     <div>Регистрован до:   <?php echo $registrovan ?></div>
     <div>Број шасије:   <?php echo $sasija ?></div>
@@ -175,9 +181,7 @@ if ($result->num_rows > 0) {
 
 
 
-<div class="footer">
-    <p>аутодетектив 2023. © Сва права задржана.</p>
-</div>
+
 
 <script>
         let slideIndex = 1;

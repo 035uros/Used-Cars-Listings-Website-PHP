@@ -42,10 +42,20 @@ CloseCon($conn);
 
     <body>
 
-        <div class="topnav">
-            <a class="active" href="login.php">Пријави се</a>
+    <div class="topnav">
+            <?php if($_SESSION['potvrdjenpristup'] == true)
+            {
+               echo'<a href="login.php?o=1">Одјави се</a>';
+               if($_SESSION['id_tipa_korisnika']==1){
+                echo'<a href="odobravanjeOglasa.php">Одобри огласе</a>';
+                echo'<a href="kontrolnatabla.php">Контролна табла</a>';
+               }
+            }else{
+                echo'<a href="login.php">Пријави се</a>';
+            }
+            ?>    
             <a href="unosOglasa.php">Постави оглас</a>
-            <a href="index.php">Почетна</a>
+            <a class="active" href="index.php">Почетна</a>
         </div>
                 
         <div class="center">
@@ -82,9 +92,7 @@ CloseCon($conn);
         </div> 
         </div>
 
-        <div class="footer">
-            <p>аутодетектив 2023. © Сва права задржана.</p>
-        </div>
+
 
     </body>
 </html>

@@ -39,7 +39,8 @@ else{
 }
 
 if(isset($_POST["azuriranjekorisnika"])){
-  $id          = $_POST['id'];
+
+  $id          = $_POST['azuriranjekorisnika'];
   $user          = $_POST['username'];
   $ime           = $_POST['ime'];
   $prezime       = $_POST['prezime'];
@@ -53,7 +54,7 @@ if(isset($_POST["azuriranjekorisnika"])){
     $status         = $_POST['status'];
 }
 
-  $sql = "UPDATE `korisnik` SET `ime` = '$ime', `prezime` = '$prezime', `id_tipa_korisnika` = '$status', `email` = '$email', `username` = '$user', `sifra` = '$sifra1', `kontaktTelefon` = '$telefon', `region` = '$region' WHERE `korisnik`.`id_korisnika` = 5;";
+  $sql = "UPDATE `korisnik` SET `ime` = '$ime', `prezime` = '$prezime', `id_tipa_korisnika` = '$status', `email` = '$email', `username` = '$user', `sifra` = '$sifra1', `kontaktTelefon` = '$telefon', `region` = '$region' WHERE `korisnik`.`id_korisnika` ='$id';";
   if($conn->query($sql)){
       echo '<script>alert("Ажурирање успешно.")</script>';
   }
@@ -77,11 +78,21 @@ CloseCon($conn);
 <body>
     
 
-<div class="topnav">    
-    <a href="login.php">Одјави се</a>
-    <a href="kontrolnatablaoglas.php">Огласи</a>
-    <a href="kontrolnatabla.php" class="active">Корисници</a>
-</div>
+<div class="topnav">
+            <?php if($_SESSION['potvrdjenpristup'] == true)
+            {
+               echo'<a href="login.php?o=1">Одјави се</a>';
+               if($_SESSION['id_tipa_korisnika']==1){
+                echo'<a href="odobravanjeOglasa.php">Одобри огласе</a>';
+                echo'<a href="kontrolnatabla.php">Контролна табла</a>';
+               }
+            }else{
+                echo'<a href="login.php">Пријави се</a>';
+            }
+            ?>    
+            <a href="unosOglasa.php">Постави оглас</a>
+            <a class="active" href="index.php">Почетна</a>
+        </div>
 
 <h1>Преглед корисника</h1>
 <table>
@@ -95,7 +106,7 @@ CloseCon($conn);
     <th>Регион</th>
     <th>Статус корисника</th>
     <th>Akcije</th>
-  </tr><form method="post" action="/kontrolnatabla.php">
+  </tr>
     <?php 
     $conn = OpenCon();
     $conn->query("SET NAMES 'utf8'");
@@ -103,7 +114,7 @@ CloseCon($conn);
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while($red = $result->fetch_assoc()) {
-          echo '<tr>'.
+          echo '<form method="post" action="/kontrolnatabla.php"><tr>'.
           '<input type="hidden" id="id" name="id" value="'.$red["id_korisnika"].'">'.
           '<td><input type="text" id="ime" name="ime" value="'.$red["ime"].'"></td>'.
           '<td><input type="text" id="Prezime" name="prezime" value="'.$red["prezime"].'"></td>'.
@@ -135,13 +146,13 @@ CloseCon($conn);
           echo
           '</select></td>'.
           '<td>'.
-          '<button name="azuriranjekorisnika" class="update-button">Уреди</button>'.
+          '<button name="azuriranjekorisnika" value="'.$red["id_korisnika"].'" class="update-button">Уреди</button>'.
           '<button  onclick="location.href=\'kontrolnatabla.php?brisi=1&id='.$red["id_korisnika"].'\'" class="delete-button">Обриши</button>'.
-          '</td></tr>';
+          '</td></tr></form>';
         }
       }
     ?>
-    </form>
+ 
   <form method="post" action="/kontrolnatabla.php">
   <tr>
     <td><input type="text" id="ime" name="ime" placeholder="Име"></td>
@@ -175,17 +186,6 @@ CloseCon($conn);
 </table>
 <?php
 
-
-
-
 ?>
-
-
-
-
-
 </body>
-
-
-
 </html>

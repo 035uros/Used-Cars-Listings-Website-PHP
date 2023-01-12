@@ -52,9 +52,9 @@ if(isset($_POST["unosvozila"])){
     if(in_array($fileActualExt, $allowed)){
         if($fileError === 0){
             $fileNameNew = uniqid('', true).".".$fileActualExt;
-            if (!file_exists("C:/wamp64/www/UsedCarsWebApp-main/images/oglasi/". strval($broj_oglasa))) {
-                mkdir("C:/wamp64/www/UsedCarsWebApp-main/images/oglasi/". strval($broj_oglasa), 0777, true);}
-            $fileDestination = "C:/wamp64/www/UsedCarsWebApp-main/images/oglasi/". strval($broj_oglasa)."/".$fileNameNew;
+            if (!file_exists("C:/wamp64/www/UsedCarsApp/images/oglasi/". strval($broj_oglasa))) {
+                mkdir("C:/wamp64/www/UsedCarsApp/images/oglasi/". strval($broj_oglasa), 0777, true);}
+            $fileDestination = "C:/wamp64/www/UsedCarsApp/images/oglasi/". strval($broj_oglasa)."/".$fileNameNew;
             $fileBaza = "images/oglasi/". strval($broj_oglasa)."/".$fileNameNew;
             $nizPutanja = $nizPutanja.$fileBaza.';';
             move_uploaded_file($fileTmpName, $fileDestination);
@@ -77,7 +77,7 @@ $conn->query("SET NAMES 'utf8'");
     else{
         echo("Грешка при уносу аутомобила: " . $conn -> error);
     }
-    $sql = "INSERT INTO `oglas` (`broj_oglasa`, `naslov`, `id_korisnika`, `vin_automobila`, `cena`,`status_oglasa`, `datum`,`cena_fix`,`zamena`,`slike`,`opis`) VALUES ($broj_oglasa, '$naslov', $id_korisnika, $vin, $cena, 1, '$datum', $fiks, $zamena, '$nizPutanja', '$opis')";
+    $sql = "INSERT INTO `oglas` (`broj_oglasa`, `naslov`, `id_korisnika`, `vin_automobila`, `cena`,`status_oglasa`, `datum`,`cena_fix`,`zamena`,`slike`,`opis`) VALUES ($broj_oglasa, '$naslov', $id_korisnika, $vin, $cena, 0, '$datum', $fiks, $zamena, '$nizPutanja', '$opis')";
     
     if($conn->query($sql)){
     }
@@ -90,7 +90,7 @@ $conn->query("SET NAMES 'utf8'");
 CloseCon($conn);
 
 echo '<script>alert("Унос успешан, проследићемо вас на страницу ваших огласа.")</script>';
-header('location: unosOglasa.php');
+header('location: index.php');
 }
 
 ?>

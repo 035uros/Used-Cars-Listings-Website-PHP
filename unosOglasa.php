@@ -17,35 +17,28 @@ $conn = OpenCon();
 </head>
 <body>
 
-<div class="topnav">    
-    <?php if($_SESSION['potvrdjenpristup'] == true){
-            echo'<a href="login.php?o=1">Одјави се</a>';
-        }else{
-            echo'<a href="login.php">Пријави се</a>';
-        }
-    ?>  
-    <a class="active" href="unosOglasa.php">Постави оглас</a>
-    <a href="index.php">Почетна</a>
-</div>
+<div class="topnav">
+            <?php if($_SESSION['potvrdjenpristup'] == true)
+            {
+               echo'<a href="login.php?o=1">Одјави се</a>';
+               if($_SESSION['id_tipa_korisnika']==1){
+                echo'<a href="odobravanjeOglasa.php">Одобри огласе</a>';
+                echo'<a href="kontrolnatabla.php">Контролна табла</a>';
+               }
+            }else{
+                echo'<a href="login.php">Пријави се</a>';
+            }
+            ?>    
+            <a class="active"href="unosOglasa.php">Постави оглас</a>
+            <a  href="index.php">Почетна</a>
+        </div>
 
 
 <div>
     <h1 class="naslov">Постављање огласа</h1>
 
     <form class="formaUnosOglasa" action = "upload.php" method="post" enctype="multipart/form-data"> 
-        <label for="naslov">Наслов огласа</label>
-        <input type="text" id="naslov" name="naslov" placeholder="Наслов" required>
-
-        <p for="files">Увези слике:</p>
-
-        <div class="image-upload">
-                <label for="file-input">
-                    <img src="https://icons.iconarchive.com/icons/paomedia/small-n-flat/128/cloud-up-icon.png"/>
-                </label>
-                <input id="file-input" type="file" name="file[]" multiple required>
-            </div>
-
-        <label for="marka">Марка:</label>
+    <label for="marka">Марка:</label>
         <select name="marka" id="marka" required>
             <option value="" disabled selected hidden>Марка</option>
             <?php
@@ -83,10 +76,24 @@ $conn = OpenCon();
             ?>
         </select>
 
+        <label for="naslov">Наслов огласа</label>
+        <input type="text" id="naslov" name="naslov" placeholder="Наслов" required>
+
+        <p for="files">Увези слике:</p>
+
+        <div class="image-upload">
+                <label for="file-input">
+                    <img style="margin-left:auto; margin-right:auto; width:50%" src="https://icons.iconarchive.com/icons/paomedia/small-n-flat/512/cloud-up-icon.png"/>
+                </label>
+                <input id="file-input" type="file" name="file[]" multiple required>
+            </div>
+
+        
+
         <h2>Основне информације</h2>
         <label for="godiste">Година производње:</label>
         <select name="godiste" id="godiste" required>
-        <option value="" disabled selected hidden>Годише</option>
+        <option value="" disabled selected hidden>Годиште</option>
         <?php
             for($i=date("Y"); $i>1960; $i--) {
                 echo'<option value="'.$i.'">'.$i.'</option>';
@@ -234,9 +241,6 @@ $conn = OpenCon();
     </form>
 </div>
 
-<div class="footer">
-    <p>аутодетектив 2023. © Сва права задржана.</p>
-</div>
 
 </body>
 </html>

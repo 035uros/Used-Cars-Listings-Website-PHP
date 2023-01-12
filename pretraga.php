@@ -1,6 +1,31 @@
 <?php
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
+
 include 'baza_podataka.php';
 session_start();
+
+$conn = OpenCon();
+$conn->query("SET NAMES 'utf8'");
+
+if(isset($_GET['idpret'])){
+    $id_pretrage = $_GET['idpret'];
+
+    $sql = "SELECT * FROM `pretraga` WHERE id_pretrage =".$id_pretrage;
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        while($red = $result->fetch_assoc()) {
+            $marka = $red['id_marka'];
+            $model = $red['id_model'];
+            $cenado = $red['cena_do'];
+            $godisteod = $red['godisteod'];
+            $godistedo = $red['godistedo'];
+            $karoserija = $red['id_karoserije'];
+            $gorivo = $red['id_goriva'];
+            $region = $red['region'];
+            $nazivPretrage = $red['naziv'];
+        }
+    }
+}
 
 $sqlGlavni = "SELECT * FROM (oglas join automobil on oglas.vin_automobila=automobil.VIN) join korisnik on korisnik.id_korisnika = oglas.id_korisnika WHERE status_oglasa=1 ";
 
@@ -39,10 +64,9 @@ if(isset($_GET['submit'])){
     }else{$region='nije';}
 
 }
-    $conn = OpenCon();
-    $conn->query("SET NAMES 'utf8'");
 
-set_url("http://localhost:3000/pretraga.php");
+
+/*set_url("http://localhost:3000/pretraga.php");*/
 ?><!DOCTYPE html>
 
 <html>
@@ -54,16 +78,20 @@ set_url("http://localhost:3000/pretraga.php");
 <body>
 
 <div class="topnav">
-    <?php if($_SESSION['potvrdjenpristup'] == true)
-    {
-       echo'<a href="login.php?o=1">Одјави се</a>';
-    }else{
-        echo'<a href="login.php">Пријави се</a>';
-    }
-    ?>    
-    <a href="unosOglasa.php">Постави оглас</a>
-    <a href="index.php">Почетна</a>
-</div>
+            <?php if($_SESSION['potvrdjenpristup'] == true)
+            {
+               echo'<a href="login.php?o=1">Одјави се</a>';
+               if($_SESSION['id_tipa_korisnika']==1){
+                echo'<a href="odobravanjeOglasa.php">Одобри огласе</a>';
+                echo'<a href="kontrolnatabla.php">Контролна табла</a>';
+               }
+            }else{
+                echo'<a href="login.php">Пријави се</a>';
+            }
+            ?>    
+            <a href="unosOglasa.php">Постави оглас</a>
+            <a class="active" href="index.php">Почетна</a>
+        </div>
 
 <form action="/pretraga.php?submit=1" class="forma" method="post">
     
@@ -86,7 +114,7 @@ set_url("http://localhost:3000/pretraga.php");
 
 
     <select name="model" id="model" >
-        <option value="" disabled selected hidden>Модел</option>
+        <option value="NULL" disabled selected hidden>Модел</option>
         <?php
          $conn->query("SET NAMES 'utf8'");
         if(isset($_GET['broj'])){
@@ -125,11 +153,14 @@ set_url("http://localhost:3000/pretraga.php");
             $cenado= doubleval($_GET['cena']); 
             echo 'value='.$cenado;
         }
+        else{
+            echo 'value='.$cenado;
+        }
     ?>
     >
 
     <select name="godisteod" id="godisteod" >
-        <option value="" disabled selected hidden>Годише од</option>
+        <option value="1950" disabled selected hidden>Годиште од</option>
         <?php
         if(isset($_GET['godod'])){
             $godisteod=$_GET['godod'];
@@ -146,7 +177,7 @@ set_url("http://localhost:3000/pretraga.php");
     </select>
 
     <select name="godistedo" id="godistedo" >
-        <option value="" disabled selected hidden>Годише до</option>
+        <option value="2024" disabled selected hidden>Годиште до</option>
         <?php
         if(isset($_GET['goddo'])){
             $godistedo=$_GET['goddo'];
@@ -163,7 +194,7 @@ set_url("http://localhost:3000/pretraga.php");
     </select>
 
     <select name="karoserija" id="karoserija" >
-        <option value="" disabled selected hidden>Каросерија</option>
+        <option value="NULL" disabled selected hidden>Каросерија</option>
         <?php
             if(isset($_GET['kar'])){
                 $karoserija=$_GET['kar'];
@@ -185,7 +216,7 @@ set_url("http://localhost:3000/pretraga.php");
     </select>
 
     <select name="gorivo" id="gorivo" >
-        <option value="" disabled selected hidden>Гориво</option>
+        <option value="NULL" disabled selected hidden>Гориво</option>
         <?php
             if(isset($_GET['gor'])){
                 $gorivo=$_GET['gor'];
@@ -227,7 +258,68 @@ set_url("http://localhost:3000/pretraga.php");
 
 
     <input type="submit" value="Претражи">
+
     </form>
+
+    <div class="formamala">
+
+    <select name="pretraga" id="pretraga" >
+    <option value="0" disabled selected hidden>Моје претраге</option>
+    <?php
+        $conn->query("SET NAMES 'utf8'");
+        $sql = "SELECT * FROM pretraga WHERE id_korisnika=".$_SESSION['korisnik'];
+        $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                while($red = $result->fetch_assoc()) {
+                    if($id_pretrage == $red["id_pretrage"]){
+                        echo'<option value="'.$red["id_pretrage"].'" selected>'.$red["naziv"].'</option>';
+                    }
+                    else{
+                        echo'<option value="'.$red["id_pretrage"].'">'.$red["naziv"].'</option>';
+                    }
+                }
+            }
+    ?>
+    </select>
+
+    <button onclick="pretraga()">Очитај</button>
+
+    <input type="text" id="unesiPretragu" name="unesiPretragu" placeholder="Унеси име претраге" >
+    
+    <?php echo '<input type="hidden"  id="idKorisnika" name="idKorisnika" value="'.$_SESSION['korisnik'].'">';?>
+    
+    <button onclick="cuvanje()">Сачувај претрагу</button>
+    </div>
+
+
+    <script>
+        function cuvanje() {
+            var ma = document.getElementById("marka").value;
+            var mo = document.getElementById("model").value;
+            var c = document.getElementById("cena").value;
+            var go = document.getElementById("godisteod").value;
+            var gd = document.getElementById("godistedo").value;
+            var k = document.getElementById("karoserija").value;
+            var g = document.getElementById("gorivo").value;
+            var r = document.getElementById("region").value;
+            var n = document.getElementById("unesiPretragu").value;
+            var id = document.getElementById("idKorisnika").value;
+
+            var str = "save.php?id="+id+'&marka='+ma+'&model='+mo+'&gorivo='+g+'&godisteod='+go+'&godistedo='+gd+'&karoserija='+k+'&cenado='+c+'&nazivpretrage='+n+'&region='+r;
+
+
+            window.open(str); 
+            window.close();
+            }
+
+        function pretraga() {
+            var id = document.getElementById("pretraga").value;
+            var str = "pretraga.php?idpret="+id;
+
+            window.open(str);
+            window.close(); 
+            }
+    </script>
 
 
     <?php
@@ -272,9 +364,6 @@ set_url("http://localhost:3000/pretraga.php");
     
 </div>
 
-<div class="footer">
-    <p>аутодетектив 2023. © Сва права задржана.</p>
-</div>
 
 </body>
 </html>
