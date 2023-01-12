@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 11, 2023 at 09:21 PM
+-- Generation Time: Jan 12, 2023 at 11:14 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -43,7 +43,6 @@ CREATE TABLE IF NOT EXISTS `automobil` (
   `zapremina` int(11) NOT NULL,
   `snaga` varchar(30) COLLATE utf8mb4_bin NOT NULL,
   `id_broja_vrata` int(11) NOT NULL,
-  `oprema` text COLLATE utf8mb4_bin DEFAULT NULL,
   `registrovan_do` varchar(35) COLLATE utf8mb4_bin DEFAULT NULL,
   PRIMARY KEY (`VIN`),
   KEY `id_marke` (`id_marke`),
@@ -60,10 +59,9 @@ CREATE TABLE IF NOT EXISTS `automobil` (
 -- Dumping data for table `automobil`
 --
 
-INSERT INTO `automobil` (`VIN`, `id_marke`, `id_modela`, `id_tip_vozila`, `godina_proizvodnje`, `kilometraza`, `id_pogona`, `id_menjaca`, `id_karoserije`, `id_goriva`, `zapremina`, `snaga`, `id_broja_vrata`, `oprema`, `registrovan_do`) VALUES
-(1111, 4, 59, 1, 2010, 222222, 1, 1, 1, 4, 2231, '123', 1, NULL, '11, 2023'),
-(4324231, 3, 33, 1, 2009, 111, 1, 1, 3, 4, 11, '11', 1, NULL, '12, 2023'),
-(1234567891, 14, 147, 1, 2012, 215000, 1, 1, 1, 1, 1600, '79', 1, NULL, '07, 2023');
+INSERT INTO `automobil` (`VIN`, `id_marke`, `id_modela`, `id_tip_vozila`, `godina_proizvodnje`, `kilometraza`, `id_pogona`, `id_menjaca`, `id_karoserije`, `id_goriva`, `zapremina`, `snaga`, `id_broja_vrata`, `registrovan_do`) VALUES
+(125486235, 1, 1, 1, 1996, 264312, 1, 1, 1, 2, 1268, '65', 1, '01, 2023'),
+(1154892853, 8, 98, 1, 2006, 145000, 1, 1, 1, 2, 1398, '65', 1, '10, 2023');
 
 -- --------------------------------------------------------
 
@@ -614,6 +612,7 @@ CREATE TABLE IF NOT EXISTS `oglas` (
   `zamena` tinyint(1) DEFAULT NULL,
   `status_oglasa` tinyint(1) NOT NULL,
   `slike` text COLLATE utf8mb4_bin DEFAULT NULL,
+  `opis` text COLLATE utf8mb4_bin DEFAULT NULL,
   `datum` varchar(55) COLLATE utf8mb4_bin DEFAULT NULL,
   PRIMARY KEY (`broj_oglasa`),
   KEY `vin_automobila` (`vin_automobila`),
@@ -624,9 +623,9 @@ CREATE TABLE IF NOT EXISTS `oglas` (
 -- Dumping data for table `oglas`
 --
 
-INSERT INTO `oglas` (`broj_oglasa`, `naslov`, `id_korisnika`, `vin_automobila`, `cena`, `cena_fix`, `zamena`, `status_oglasa`, `slike`, `datum`) VALUES
-(163, 'aa', 1, 1111, 1111, 0, 1, 1, NULL, '11 01 2023'),
-(1382880517, 'adsdas', 1, 4324231, 4322, 0, 1, 1, NULL, '11 01 2023');
+INSERT INTO `oglas` (`broj_oglasa`, `naslov`, `id_korisnika`, `vin_automobila`, `cena`, `cena_fix`, `zamena`, `status_oglasa`, `slike`, `opis`, `datum`) VALUES
+(433867146, 'Alfa 145 NOV NOV NOV', 1, 125486235, 800, 0, 1, 1, 'images/oglasi/433867146/63bf413028b6a9.53212911.jpg;images/oglasi/433867146/63bf413028f066.11375048.jpg;images/oglasi/433867146/63bf4130292195.92778026.jpg;', NULL, '11 01 2023'),
+(614198327, 'Fiat Grande Punto 1.4', 1, 1154892853, 2200, 1, 0, 1, 'images/oglasi/614198327/63bfe1c8a2aab8.94574422.jpg;images/oglasi/614198327/63bfe1c8a3e317.32624153.jpg;', 'Одличан Пунтић, као чаша. Први власник. Купљен код другара директно из фабрике Застава. Ко не верује, нек иде код портира и нека пита.', '12 01 2023');
 
 -- --------------------------------------------------------
 
