@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 12, 2023 at 10:59 PM
+-- Generation Time: Jan 15, 2023 at 03:03 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -66,6 +66,7 @@ INSERT INTO `automobil` (`VIN`, `id_marke`, `id_modela`, `id_tip_vozila`, `godin
 (12423, 5, 68, 1, 2021, 12344, 3, 1, 2, 2, 123123, '12', 2, '03, 2023'),
 (34234, 1, 3, 1, 2008, 12312, 1, 1, 3, 1, 123123, '231312', 1, '12, 2023'),
 (185156, 9, 114, 1, 2023, 234243, 1, 1, 1, 1, 1651, '324', 1, '07, 2023'),
+(234234, 4, 52, 1, 2006, 23424, 1, 2, 5, 4, 2342, '342', 1, '01, 2024'),
 (122034555, 1, 5, 1, 2007, 176320, 1, 1, 3, 1, 1910, '120', 2, '11, 2023'),
 (125486235, 1, 1, 1, 1996, 264312, 1, 1, 1, 2, 1268, '65', 1, '01, 2023'),
 (192000187, 8, 103, 1, 2003, 248752, 1, 2, 4, 2, 2400, '170', 1, '05, 2023'),
@@ -687,7 +688,7 @@ CREATE TABLE IF NOT EXISTS `pretraga` (
   KEY `id_model` (`id_model`),
   KEY `id_marka` (`id_marka`),
   KEY `id_goriva` (`id_goriva`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Dumping data for table `pretraga`
@@ -779,8 +780,7 @@ ALTER TABLE `oglas`
 -- Constraints for table `pretraga`
 --
 ALTER TABLE `pretraga`
-  ADD CONSTRAINT `pretraga_ibfk_6` FOREIGN KEY (`id_korisnika`) REFERENCES `korisnik` (`id_korisnika`),
-  ADD CONSTRAINT `pretraga_ibfk_8` FOREIGN KEY (`id_marka`) REFERENCES `automobil` (`id_marke`);
+  ADD CONSTRAINT `pretraga_ibfk_6` FOREIGN KEY (`id_korisnika`) REFERENCES `korisnik` (`id_korisnika`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
