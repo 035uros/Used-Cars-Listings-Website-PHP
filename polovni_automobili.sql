@@ -695,9 +695,9 @@ CREATE TABLE IF NOT EXISTS `pretraga` (
 --
 
 INSERT INTO `pretraga` (`id_pretrage`, `naziv`, `id_korisnika`, `id_model`, `id_marka`, `id_goriva`, `godisteod`, `godistedo`, `cena_do`, `id_karoserije`, `region`) VALUES
-(13, 'ALFA', 3, 0, 1, 0, 2000, 2000, 0, 0, NULL),
-(15, 'alfica', 3, 1, 1, 2, 1974, 2023, 1000, 1, 'Централна Србија'),
-(17, 'Alfa Romeo', 1, 0, 1, 0, 2000, 2000, 0, 0, '');
+(13, 'ALFA1980', 3, 0, 1, 0, 1980, 2000, 0, 0, NULL),
+(15, 'Alfa', 3, 1, 1, 2, 1974, 2023, 1000, 1, 'Централна Србија'),
+(17, 'Alfa Romeo', 1, 0, 1, 0, 2000, 2030, 0, 0, '');
 
 -- --------------------------------------------------------
 
