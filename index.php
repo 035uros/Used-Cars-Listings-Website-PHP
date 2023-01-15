@@ -137,7 +137,7 @@ session_start();
     </select>
 
     <select name="region" id="region" >
-        <option value="a" disabled selected hidden>Регион</option>
+        <option value="" disabled selected hidden>Регион</option>
         <option value="Београд">Београд</option>
         <option value="Централна Србија">Централна Србија</option>
         <option value="Источна Србија">Источна Србија</option>
