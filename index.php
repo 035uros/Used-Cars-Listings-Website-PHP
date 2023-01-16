@@ -26,6 +26,23 @@ session_start();
             ?>    
             <a href="unosOglasa.php">Постави оглас</a>
             <a class="active" href="index.php">Почетна</a>
+            <?php
+            if($_SESSION['potvrdjenpristup'] == true)
+            {
+            $id =$_SESSION['korisnik'];
+            echo $id;
+            $conn = OpenCon();
+            $conn->query("SET NAMES 'utf8'");
+            $sql = "SELECT slike FROM korisnik WHERE id_korisnika=".$id;
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                while($red = $result->fetch_assoc()) {
+                    echo '<a><img src="'.$red["slike"].'" alt="profilna" width="30" height="30"> </a>';
+                }
+            }
+        }
+        ?>
+            
         </div>
 
 
@@ -134,6 +151,14 @@ session_start();
                 }
             }
         ?>
+    </select>
+
+    <select name="brojSedista" id="brojSedista" >
+        <option value="" disabled selected hidden>Број седишта</option>
+        <option value="2">2</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="7">7</option>
     </select>
 
     <select name="region" id="region" >
