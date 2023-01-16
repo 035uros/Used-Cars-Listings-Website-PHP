@@ -222,10 +222,20 @@ $conn = OpenCon();
             ?>
         </select>
 
+        <select name="brojSedista" id="brojSedista" >
+        <option value="" disabled selected hidden>Број седишта</option>
+        <option value="2">2</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="7">7</option>
+    </select>
+
 
         <h2>Цена</h2>
         <label for="cena">Цена:</label>
         <input type="text" id="cena" name="cena" placeholder="Цена €" required>
+
+
 
         <input type="checkbox" id="fiks" value="true" name="fiks">
         <label for="fiks">Фиксна цена</label>
