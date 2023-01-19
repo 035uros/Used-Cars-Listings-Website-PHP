@@ -6,28 +6,21 @@
 -- Generation Time: Jan 15, 2023 at 03:03 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
-
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
-
 --
 -- Database: `polovni_automobili`
 --
-
 -- --------------------------------------------------------
-
 --
 -- Table structure for table `automobil`
 --
-
 DROP TABLE IF EXISTS `automobil`;
 CREATE TABLE IF NOT EXISTS `automobil` (
   `VIN` int(11) NOT NULL,
@@ -54,11 +47,9 @@ CREATE TABLE IF NOT EXISTS `automobil` (
   KEY `id_goriva` (`id_goriva`),
   KEY `id_broja_vrata` (`id_broja_vrata`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
 --
 -- Dumping data for table `automobil`
 --
-
 INSERT INTO `automobil` (`VIN`, `id_marke`, `id_modela`, `id_tip_vozila`, `godina_proizvodnje`, `kilometraza`, `id_pogona`, `id_menjaca`, `id_karoserije`, `id_goriva`, `zapremina`, `snaga`, `id_broja_vrata`, `registrovan_do`) VALUES
 (123, 1, 1, 1, 2021, 111, 1, 1, 2, 1, 111, '11', 1, '01, 2024'),
 (1231, 1, 1, 1, 2009, 1111, 1, 1, 2, 2, 111, '11', 1, '01, 2023'),
@@ -72,69 +63,54 @@ INSERT INTO `automobil` (`VIN`, `id_marke`, `id_modela`, `id_tip_vozila`, `godin
 (192000187, 8, 103, 1, 2003, 248752, 1, 2, 4, 2, 2400, '170', 1, '05, 2023'),
 (192200350, 8, 90, 1, 2008, 184000, 1, 1, 1, 2, 1368, '150', 2, '11, 2023'),
 (1154892853, 8, 98, 1, 2006, 145000, 1, 1, 1, 2, 1398, '65', 1, '10, 2023');
-
 -- --------------------------------------------------------
-
 --
 -- Table structure for table `broj_vrata`
 --
-
 DROP TABLE IF EXISTS `broj_vrata`;
 CREATE TABLE IF NOT EXISTS `broj_vrata` (
   `id_broja_vrata` int(11) NOT NULL,
   `broj` varchar(15) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id_broja_vrata`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
 --
 -- Dumping data for table `broj_vrata`
 --
-
 INSERT INTO `broj_vrata` (`id_broja_vrata`, `broj`) VALUES
 (1, '2/3'),
 (2, '4/5');
-
 -- --------------------------------------------------------
-
 --
 -- Table structure for table `gorivo`
 --
-
 DROP TABLE IF EXISTS `gorivo`;
 CREATE TABLE IF NOT EXISTS `gorivo` (
   `id_goriva` int(11) NOT NULL,
   `naziv` varchar(25) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id_goriva`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
 --
 -- Dumping data for table `gorivo`
 --
-
 INSERT INTO `gorivo` (`id_goriva`, `naziv`) VALUES
 (1, 'Дизел'),
 (2, 'Бензин'),
 (3, 'ТНГ'),
 (4, 'ЦНГ'),
 (5, 'Хибрид');
-
 -- --------------------------------------------------------
-
 --
 -- Table structure for table `karoserija`
 --
-
 DROP TABLE IF EXISTS `karoserija`;
 CREATE TABLE IF NOT EXISTS `karoserija` (
   `id_karoserije` int(11) NOT NULL,
   `naziv` varchar(25) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id_karoserije`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
 --
 -- Dumping data for table `karoserija`
 --
-
 INSERT INTO `karoserija` (`id_karoserije`, `naziv`) VALUES
 (1, 'Хечбек'),
 (2, 'Караван'),
@@ -144,13 +120,10 @@ INSERT INTO `karoserija` (`id_karoserije`, `naziv`) VALUES
 (6, 'Моноволумен'),
 (7, 'СУВ'),
 (8, 'Пикап');
-
 -- --------------------------------------------------------
-
 --
 -- Table structure for table `korisnik`
 --
-
 DROP TABLE IF EXISTS `korisnik`;
 CREATE TABLE IF NOT EXISTS `korisnik` (
   `id_korisnika` int(11) NOT NULL AUTO_INCREMENT,
@@ -165,33 +138,26 @@ CREATE TABLE IF NOT EXISTS `korisnik` (
   PRIMARY KEY (`id_korisnika`),
   KEY `id_tipa_korisnika` (`id_tipa_korisnika`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
 --
 -- Dumping data for table `korisnik`
 --
-
 INSERT INTO `korisnik` (`id_korisnika`, `ime`, `prezime`, `id_tipa_korisnika`, `email`, `username`, `sifra`, `kontaktTelefon`, `region`) VALUES
 (1, 'Урош', 'Милошевић', 2, 'milosevicurose14@gmail.com', 'uros', '123', '0614111002', 'Централна Србија'),
 (3, 'Урош', 'Петровић', 1, 'uroskg@gmail.com', 'urospetrovic', '1234', '06512345698', 'Западна Србија'),
 (5, 'Јована', 'Мићић', 2, 'jovana@gmail.com', 'jovana', '12345', '06512345698', 'Београд');
-
 -- --------------------------------------------------------
-
 --
 -- Table structure for table `marka`
 --
-
 DROP TABLE IF EXISTS `marka`;
 CREATE TABLE IF NOT EXISTS `marka` (
   `id_marke` int(11) NOT NULL,
   `naziv` varchar(25) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id_marke`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
 --
 -- Dumping data for table `marka`
 --
-
 INSERT INTO `marka` (`id_marke`, `naziv`) VALUES
 (1, 'Alfa Romeo'),
 (2, 'Audi'),
@@ -225,34 +191,26 @@ INSERT INTO `marka` (`id_marke`, `naziv`) VALUES
 (30, 'Volvo'),
 (31, 'Zastava'),
 (32, 'Škoda');
-
 -- --------------------------------------------------------
-
 --
 -- Table structure for table `menjac`
 --
-
 DROP TABLE IF EXISTS `menjac`;
 CREATE TABLE IF NOT EXISTS `menjac` (
   `id_menjaca` int(11) NOT NULL,
   `naziv` varchar(25) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id_menjaca`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
 --
 -- Dumping data for table `menjac`
 --
-
 INSERT INTO `menjac` (`id_menjaca`, `naziv`) VALUES
 (1, 'Мануелни'),
 (2, 'Аутоматски');
-
 -- --------------------------------------------------------
-
 --
 -- Table structure for table `model`
 --
-
 DROP TABLE IF EXISTS `model`;
 CREATE TABLE IF NOT EXISTS `model` (
   `id_model` int(11) NOT NULL AUTO_INCREMENT,
@@ -261,11 +219,9 @@ CREATE TABLE IF NOT EXISTS `model` (
   PRIMARY KEY (`id_model`),
   KEY `id_marka` (`id_marka`)
 ) ENGINE=InnoDB AUTO_INCREMENT=340 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
 --
 -- Dumping data for table `model`
 --
-
 INSERT INTO `model` (`id_model`, `id_marka`, `naziv`) VALUES
 (1, 1, '145'),
 (2, 1, '146'),
@@ -606,13 +562,10 @@ INSERT INTO `model` (`id_model`, `id_marka`, `naziv`) VALUES
 (337, 32, 'Roomster'),
 (338, 32, 'Superb'),
 (339, 32, 'Yeti');
-
 -- --------------------------------------------------------
-
 --
 -- Table structure for table `oglas`
 --
-
 DROP TABLE IF EXISTS `oglas`;
 CREATE TABLE IF NOT EXISTS `oglas` (
   `broj_oglasa` int(11) NOT NULL,
@@ -630,46 +583,36 @@ CREATE TABLE IF NOT EXISTS `oglas` (
   KEY `vin_automobila` (`vin_automobila`),
   KEY `id_korisnika` (`id_korisnika`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
 --
 -- Dumping data for table `oglas`
 --
-
 INSERT INTO `oglas` (`broj_oglasa`, `naslov`, `id_korisnika`, `vin_automobila`, `cena`, `cena_fix`, `zamena`, `status_oglasa`, `slike`, `opis`, `datum`) VALUES
 (59639435, '1.9 Multijet', 1, 122034555, 3750, 0, 0, 1, 'images/oglasi/59639435/63c08dc740c849.33341005.jpg;images/oglasi/59639435/63c08dc7411ec0.03858663.jpg;', 'Редовно одржаван аутомобил.', '12 01 2023'),
 (312236159, 'ABARTH', 1, 192000187, 2990, 0, 0, 1, 'images/oglasi/312236159/63c08d317079b7.86971984.jpg;images/oglasi/312236159/63c08d3170c3c1.01341508.jpg;images/oglasi/312236159/63c08d3170ffc9.61108936.jpg;', 'Фантастичан аутомобил. Без замене.', '12 01 2023'),
 (433867146, 'Alfa 145 NOV NOV NOV', 1, 125486235, 800, 0, 1, 1, 'images/oglasi/433867146/63bf413028b6a9.53212911.jpg;images/oglasi/433867146/63bf413028f066.11375048.jpg;images/oglasi/433867146/63bf4130292195.92778026.jpg;', NULL, '11 01 2023'),
 (614198327, 'Fiat Grande Punto 1.4', 1, 1154892853, 2200, 1, 0, 1, 'images/oglasi/614198327/63bfe1c8a2aab8.94574422.jpg;images/oglasi/614198327/63bfe1c8a3e317.32624153.jpg;', 'Одличан Пунтић, као чаша. Први власник. Купљен код другара директно из фабрике Застава. Ко не верује, нек иде код портира и нека пита.', '12 01 2023'),
 (1764037384, '1.4 T-jet', 1, 192200350, 4400, 1, 0, 1, 'images/oglasi/1764037384/63c08e369b36b9.85883692.jpg;images/oglasi/1764037384/63c08e369b7284.65616945.jpg;images/oglasi/1764037384/63c08e369ba5d3.66725767.jpg;', 'Комплетна сервисна историја.', '12 01 2023');
-
 -- --------------------------------------------------------
-
 --
 -- Table structure for table `pogon`
 --
-
 DROP TABLE IF EXISTS `pogon`;
 CREATE TABLE IF NOT EXISTS `pogon` (
   `id_pogona` int(11) NOT NULL,
   `naziv` varchar(25) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id_pogona`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
 --
 -- Dumping data for table `pogon`
 --
-
 INSERT INTO `pogon` (`id_pogona`, `naziv`) VALUES
 (1, 'Предњи'),
 (2, 'Задњи'),
 (3, '4x4');
-
 -- --------------------------------------------------------
-
 --
 -- Table structure for table `pretraga`
 --
-
 DROP TABLE IF EXISTS `pretraga`;
 CREATE TABLE IF NOT EXISTS `pretraga` (
   `id_pretrage` int(11) NOT NULL AUTO_INCREMENT,
@@ -689,12 +632,14 @@ CREATE TABLE IF NOT EXISTS `pretraga` (
   KEY `id_marka` (`id_marka`),
   KEY `id_goriva` (`id_goriva`)
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
 --
 -- Dumping data for table `pretraga`
 --
 
 INSERT INTO `pretraga` (`id_pretrage`, `naziv`, `id_korisnika`, `id_model`, `id_marka`, `id_goriva`, `godisteod`, `godistedo`, `cena_do`, `id_karoserije`, `region`) VALUES
+(13, 'ALFA', 3, 0, 1, 0, 2000, 2000, 0, 0, NULL),
+(15, 'alfica', 3, 1, 1, 2, 1974, 2023, 1000, 1, 'Централна Србија'),
+(17, 'Alfa Romeo', 1, 0, 1, 0, 2000, 2000, 0, 0, '');
 (13, 'ALFA1980', 3, 0, 1, 0, 1980, 2000, 0, 0, NULL),
 (15, 'Alfa', 3, 1, 1, 2, 1974, 2023, 1000, 1, 'Централна Србија'),
 (17, 'Alfa Romeo', 1, 0, 1, 0, 2000, 2030, 0, 0, '');
@@ -704,47 +649,37 @@ INSERT INTO `pretraga` (`id_pretrage`, `naziv`, `id_korisnika`, `id_model`, `id_
 --
 -- Table structure for table `tip_korisnika`
 --
-
 DROP TABLE IF EXISTS `tip_korisnika`;
 CREATE TABLE IF NOT EXISTS `tip_korisnika` (
   `id_tipa_korisnika` int(11) NOT NULL,
   `naziv` varchar(25) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id_tipa_korisnika`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
 --
 -- Dumping data for table `tip_korisnika`
 --
-
 INSERT INTO `tip_korisnika` (`id_tipa_korisnika`, `naziv`) VALUES
 (1, 'Администратор'),
 (2, 'Корисник');
-
 -- --------------------------------------------------------
-
 --
 -- Table structure for table `tip_vozila`
 --
-
 DROP TABLE IF EXISTS `tip_vozila`;
 CREATE TABLE IF NOT EXISTS `tip_vozila` (
   `id_tipa_vozila` int(11) NOT NULL,
   `naziv` varchar(35) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id_tipa_vozila`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
 --
 -- Dumping data for table `tip_vozila`
 --
-
 INSERT INTO `tip_vozila` (`id_tipa_vozila`, `naziv`) VALUES
 (1, 'Путничко'),
 (2, 'Теретно');
-
 --
 -- Constraints for dumped tables
 --
-
 --
 -- Constraints for table `automobil`
 --
@@ -756,33 +691,28 @@ ALTER TABLE `automobil`
   ADD CONSTRAINT `automobil_ibfk_5` FOREIGN KEY (`id_goriva`) REFERENCES `gorivo` (`id_goriva`),
   ADD CONSTRAINT `automobil_ibfk_8` FOREIGN KEY (`id_broja_vrata`) REFERENCES `broj_vrata` (`id_broja_vrata`),
   ADD CONSTRAINT `automobil_ibfk_9` FOREIGN KEY (`id_modela`) REFERENCES `model` (`id_model`);
-
 --
 -- Constraints for table `korisnik`
 --
 ALTER TABLE `korisnik`
   ADD CONSTRAINT `korisnik_ibfk_1` FOREIGN KEY (`id_tipa_korisnika`) REFERENCES `tip_korisnika` (`id_tipa_korisnika`);
-
 --
 -- Constraints for table `model`
 --
 ALTER TABLE `model`
   ADD CONSTRAINT `model_ibfk_1` FOREIGN KEY (`id_marka`) REFERENCES `marka` (`id_marke`);
-
 --
 -- Constraints for table `oglas`
 --
 ALTER TABLE `oglas`
   ADD CONSTRAINT `oglas_ibfk_2` FOREIGN KEY (`vin_automobila`) REFERENCES `automobil` (`VIN`),
   ADD CONSTRAINT `oglas_ibfk_3` FOREIGN KEY (`id_korisnika`) REFERENCES `korisnik` (`id_korisnika`);
-
 --
 -- Constraints for table `pretraga`
 --
 ALTER TABLE `pretraga`
   ADD CONSTRAINT `pretraga_ibfk_6` FOREIGN KEY (`id_korisnika`) REFERENCES `korisnik` (`id_korisnika`);
 COMMIT;
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
