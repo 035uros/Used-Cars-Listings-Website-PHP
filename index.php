@@ -10,8 +10,6 @@ session_start();
 <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
-
-
 <div class="topnav">
             <?php if($_SESSION['potvrdjenpristup'] == true)
             {
@@ -26,29 +24,8 @@ session_start();
             ?>    
             <a href="unosOglasa.php">Постави оглас</a>
             <a class="active" href="index.php">Почетна</a>
-            <?php
-            if($_SESSION['potvrdjenpristup'] == true)
-            {
-            $id =$_SESSION['korisnik'];
-            echo $id;
-            $conn = OpenCon();
-            $conn->query("SET NAMES 'utf8'");
-            $sql = "SELECT slike FROM korisnik WHERE id_korisnika=".$id;
-            $result = $conn->query($sql);
-            if ($result->num_rows > 0) {
-                while($red = $result->fetch_assoc()) {
-                    echo '<a><img src="'.$red["slike"].'" alt="profilna" width="30" height="30"> </a>';
-                }
-            }
-        }
-        ?>
-            
         </div>
-
-
-
 <img src="images/banner/supra.jpg" class="banner" alt="Toyota Supra">
-
 <form action="/pretraga.php?submit=1" class="forma" method="post">
     
     <select name="marka" id="marka" required>
@@ -69,8 +46,6 @@ session_start();
             }
         ?>
     </select>
-
-
     <select name="model" id="model" >
         <option value="NULL" disabled selected hidden>Модел</option>
         <?php
@@ -88,9 +63,7 @@ session_start();
         }
         ?>
     </select>
-
     <input type="text" id="cena" name="cena" placeholder="цена до">
-
     <select name="godisteod" id="godisteod" >
         <option value="1950" disabled selected hidden>Годиште од</option>
         <?php
@@ -99,7 +72,6 @@ session_start();
             } 
         ?>
     </select>
-
     <select name="godistedo" id="godistedo" >
         <option value="2024" disabled selected hidden>Годиште до</option>
         <?php
@@ -108,7 +80,6 @@ session_start();
             } 
         ?>
     </select>
-
     <select name="karoserija" id="karoserija" >
         <option value="NULL" disabled selected hidden>Каросерија</option>
         <?php
@@ -130,7 +101,6 @@ session_start();
             }
         ?>
     </select>
-
     <select name="gorivo" id="gorivo" >
         <option value="NULL" disabled selected hidden>Гориво</option>
         <?php
@@ -153,15 +123,8 @@ session_start();
         ?>
     </select>
 
-    <select name="brojSedista" id="brojSedista" >
-        <option value="" disabled selected hidden>Број седишта</option>
-        <option value="2">2</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="7">7</option>
-    </select>
-
     <select name="region" id="region" >
+        <option value="a" disabled selected hidden>Регион</option>
         <option value="" disabled selected hidden>Регион</option>
         <option value="Београд">Београд</option>
         <option value="Централна Србија">Централна Србија</option>
@@ -171,13 +134,9 @@ session_start();
         <option value="Војовидна">Војовидна</option>
         <option value="Западна Србија">Западна Србија</option>
     </select>
-
-
     <input type="submit" value="Претражи">
 </form>
-
 <div class="formamala">
-
     <select name="pretraga" id="pretraga" >
     <option value="0" disabled selected hidden>Моје претраге</option>
     <?php
@@ -197,17 +156,13 @@ session_start();
             CloseCon($conn);
     ?>
     </select>
-
     <button onclick="pretraga()">Очитај</button>
-
     <input type="text" id="unesiPretragu" name="unesiPretragu" placeholder="Унеси име претраге" >
     
     <?php echo '<input type="hidden"  id="idKorisnika" name="idKorisnika" value="'.$_SESSION['korisnik'].'">';?>
     
     <button onclick="cuvanje()">Сачувај претрагу</button>
     </div>
-
-
     <script>
         function cuvanje() {
             var ma = document.getElementById("marka").value;
@@ -220,23 +175,15 @@ session_start();
             var r = document.getElementById("region").value;
             var n = document.getElementById("unesiPretragu").value;
             var id = document.getElementById("idKorisnika").value;
-
             var str = "save.php?id="+id+'&marka='+ma+'&model='+mo+'&gorivo='+g+'&godisteod='+go+'&godistedo='+gd+'&karoserija='+k+'&cenado='+c+'&nazivpretrage='+n+'&region='+r;
-
             window.open(str); 
             }
-
         function pretraga() {
             var id = document.getElementById("pretraga").value;
             var str = "pretraga.php?idpret="+id;
-
             window.open(str);
             window.close(); 
             }
     </script>
-
-
-
 </body>
 </html>
-
